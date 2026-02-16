@@ -1,49 +1,18 @@
-# Henry Wang - Personal Portfolio
+# Henry Wang's Portfolio
 
-A clean and modern personal portfolio website showcasing my professional experience, projects, and skills.
+[![Live Site](https://img.shields.io/badge/Live-henryw8.github.io-blue)](https://henryw8.github.io/personal-website/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## About
+Personal portfolio website showcasing my work in sports analytics and data science at MIT and the Boston Red Sox.
 
-This is the personal portfolio website for Henry Wang. It features a responsive design that works seamlessly across desktop, tablet, and mobile devices.
+## 🎯 About
 
-## Features
+I'm a PhD candidate at MIT working at the intersection of sports technology, data science, and policy. This site features my research publications, professional experience, and press coverage.
 
-- Responsive design for all screen sizes
-- Clean and modern UI
-- Sections for About, Experience, Projects, and Contact
-- Easy to customize and update
 
-## Getting Started
+## 📫 Contact
 
-Simply open `index.html` in your web browser to view the portfolio locally.
+- **Email:** hwang21@mit.edu
+- **LinkedIn:** [linkedin.com/in/hwang21](https://linkedin.com/in/hwang21/)
+- **CV:** [View PDF](assets/documents/Henry_Wang_CV.pdf)
 
-## Customization
-
-To personalize this portfolio for your own use:
-
-1. Update the content in `index.html` with your own information:
-   - Personal details and tagline
-   - Experience and work history
-   - Projects and achievements
-   - Contact information and social links
-
-2. Modify the styling in `style.css` to match your preferences:
-   - Color scheme (update CSS variables in `:root`)
-   - Fonts and typography
-   - Spacing and layout
-
-## Deployment
-
-This site can be easily deployed to:
-- GitHub Pages
-- Netlify
-- Vercel
-- Any static site hosting service
-
-## LinkedIn
-
-Connect with me on [LinkedIn](https://linkedin.com/in/hwang21/)
-
-## License
-
-© 2026 Henry Wang. All rights reserved.
