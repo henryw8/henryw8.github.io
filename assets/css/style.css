@@ -86,19 +86,6 @@ nav {
     font-weight: 500;
 }
 
-.cv-link {
-    border: 1px solid var(--border-color);
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    transition: all 0.2s;
-}
-
-.cv-link:hover {
-    background-color: var(--text-primary);
-    color: var(--background) !important;
-    border-color: var(--text-primary);
-}
-
 /* Hero Section */
 #hero {
     padding: 8rem 2rem 6rem;
