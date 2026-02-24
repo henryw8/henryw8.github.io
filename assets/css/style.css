@@ -649,6 +649,17 @@ footer p {
     font-size: 0.85rem;
 }
 
+footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-color);
+}
+
+footer a:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-primary);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     nav {
