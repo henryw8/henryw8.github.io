@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog - Henry Wang">
+    <title>Blog | Henry Wang</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html">Henry Wang</a></div>
+            <ul class="nav-links">
+                <li><a href="work.html">Work</a></li>
+                <li><a href="press.html">Press</a></li>
+                <li><a href="experience.html">Experience</a></li>
+                <li><a href="blogs.html" class="active">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="blog">
+            <div class="container">
+                <h2>Blog</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Temporal Context in Deep Nets for Pitch Modeling: A Study of Lag Length and Architecture</h3>
+                        <p class="authors">MIT 6.7960 (Deep Learning) · 2024</p>
+                        <p>This post uses an MLB pitch-modeling dataset (3.8M+ pitches, 2021–2025) to examine how inductive biases in LSTM versus MLP architectures affect autoregressive prediction of delta run expectancy. We find that LSTMs filter noisy contextual signals more effectively than MLPs, suggesting that simply adding more lag features to an MLP is not an optimal approach for modeling pitch sequences.</p>
+                        <div class="project-links">
+                            <a href="blogs/dl-pitch-modeling/index.html">Read Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Henry Wang · <a href="mailto:hwang21@mit.edu">hwang21@mit.edu</a> · <a href="https://linkedin.com/in/hwang21/" target="_blank">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=8h_nPZUAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a></p>
+    </footer>
+
+</body>
+</html>

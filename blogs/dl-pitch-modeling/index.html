@@ -1,0 +1,578 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<link rel="shortcut icon" href="images/icon.ico">
+<style type="text/css">
+	body {
+		background-color: #f5f9ff;
+	}
+
+	/* Hide both math displays initially, will display based on JS detection */
+  .mathjax-mobile, .mathml-non-mobile { display: none; }
+
+  /* Show the MathML content by default on non-mobile devices */
+  .show-mathml .mathml-non-mobile { display: block; }
+  .show-mathjax .mathjax-mobile { display: block; }
+
+	.content-margin-container {
+		display: flex;
+		width: 100%; /* Ensure the container is full width */
+		justify-content: left; /* Horizontally centers the children in the container */
+		align-items: center;  /* Vertically centers the children in the container */
+	}
+	.main-content-block {
+		width: 70%; /* Change this percentage as needed */
+    max-width: 1100px; /* Optional: Maximum width */
+		background-color: #fff;
+		border-left: 1px solid #DDD;
+		border-right: 1px solid #DDD;
+		padding: 8px 8px 8px 8px;
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	}
+	.margin-left-block {
+			font-size: 14px;
+			width: 15%; /* Change this percentage as needed */
+			max-width: 130px; /* Optional: Maximum width */
+			position: relative;
+			margin-left: 10px;
+			text-align: left;
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+			padding: 5px;
+	}
+	.margin-right-block {
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+			font-size: 14px;
+			width: 25%; /* Change this percentage as needed */
+			max-width: 256px; /* Optional: Maximum width */
+			position: relative;
+			text-align: left;
+			padding: 10px;  /* Optional: Adds padding inside the caption */
+	}
+
+	img {
+			max-width: 100%; /* Make sure it fits inside the container */
+			height: auto;
+			display: block;
+			margin: auto;
+	}
+	.my-video {
+			max-width: 100%; /* Make sure it fits inside the container */
+			height: auto;
+			display: block;
+			margin: auto;
+	}
+	/* Hide both video displays initially, will display based on JS detection */
+  .vid-mobile, .vid-non-mobile { display: none; }
+
+  /* Show the video content by default on non-mobile devices */
+  .show-vid-mobile .vid-mobile { display: block; }
+  .show-vid-non-mobile .vid-non-mobile { display: block; }
+
+	a:link,a:visited
+	{
+		color: #0e7862; /*#1367a7;*/
+		text-decoration: none;
+	}
+	a:hover {
+		color: #24b597; /*#208799;*/
+	}
+
+	h1 {
+		font-size: 18px;
+		margin-top: 4px;
+		margin-bottom: 10px;
+	}
+
+	table.header {
+    font-weight: 300;
+    font-size: 17px;
+    flex-grow: 1;
+		width: 70%;
+    max-width: calc(100% - 290px); /* Adjust according to the width of .paper-code-tab */
+	}
+	table td, table td * {
+	    vertical-align: middle;
+	    position: relative;
+	}
+	table.paper-code-tab {
+	    flex-shrink: 0;
+	    margin-left: 8px;
+	    margin-top: 8px;
+	    padding: 0px 0px 0px 8px;
+	    width: 290px;
+	    height: 150px;
+	}
+
+	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		        0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		        5px 5px 0 0px #fff, /* The second layer */
+		        5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		        10px 10px 0 0px #fff, /* The third layer */
+		        10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+		margin-top: 5px;
+		margin-left: 10px;
+		margin-right: 30px;
+		margin-bottom: 5px;
+	}
+
+	hr {
+    height: 1px; /* Sets the height of the line to 1 pixel */
+    border: none; /* Removes the default border */
+    background-color: #DDD; /* Sets the line color to black */
+  }
+
+	div.hypothesis {
+		width: 80%;
+		background-color: #EEE;
+		border: 1px solid black;
+		border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		font-family: Courier;
+		font-size: 18px;
+		text-align: center;
+		margin: auto;
+		padding: 16px 16px 16px 16px;
+	}
+
+	div.citation {
+    font-size: 0.8em;
+    background-color:#fff;
+    padding: 10px;
+		height: 200px;
+  }
+
+	.fade-in-inline {
+		position: absolute;
+		text-align: center;
+		margin: auto;
+		-webkit-mask-image: linear-gradient(to right,
+																			transparent 0%,
+																			transparent 40%,
+																			black 50%,
+																			black 90%,
+																			transparent 100%);
+		mask-image: linear-gradient(to right,
+																transparent 0%,
+																transparent 40%,
+																black 50%,
+																black 90%,
+																transparent 100%);
+		-webkit-mask-size: 8000% 100%;
+		mask-size: 8000% 100%;
+		animation-name: sweepMask;
+		animation-duration: 4s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		animation-delay: -1s;
+	}
+
+	.fade-in2-inline {
+			animation-delay: 1s;
+	}
+
+	.inline-div {
+			position: relative;
+	    display: inline-block; /* Makes both the div and paragraph inline-block elements */
+	    vertical-align: top; /* Aligns them at the top, you can adjust this to middle, bottom, etc., based on your needs */
+	    width: 50px; /* Optional: Adds space between the div and the paragraph */
+	}
+
+</style>
+
+	  <title>Temporal Context in Deep Nets for MLB Pitch Modeling</title>
+      <meta property="og:title" content="Temporal Context in Deep Nets for MLB Pitch Modeling<" />
+			<meta charset="UTF-8">
+  </head>
+
+  <body>
+
+		<div class="content-margin-container">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+						<table class="header" align=left>
+								<tr>
+									<td colspan=4>
+										<span style="font-size: 32px; font-family: 'Courier New', Courier, monospace; /* Adds fallbacks */">Temporal Context in Deep Nets for MLB Pitch Modeling: A Study of Lag Length and Architecture</span>
+									</td>
+								</tr>
+								<tr>
+										<td align=left>
+												<span style="font-size:17px"><a href="https://www.linkedin.com/in/hwang21/">Henry Wang</a></span>
+										</td>
+								
+								<tr>
+									<td colspan=4 align=left><span style="font-size:18px">Final project for 6.7960, MIT</span></td>
+								</tr>
+						</table>
+					</div>
+		</div>
+
+		<div class="content-margin-container" id="intro">
+				<div class="margin-left-block">
+          <!-- table of contents here -->
+          <div style="position:fixed; max-width:inherit; top:max(20%,120px)">
+              <b style="font-size:16px">Outline</b><br><br>
+              <a href="#intro">Introduction</a><br><br>
+              <a href="#background">Background</a><br><br>
+              <a href="#methods">Methods</a><br><br>
+              <a href="#results">Results</a><br><br>
+              <a href="#discussion">Discussion</a><br><br>
+          </div>
+				</div>
+		    <div class="main-content-block">
+            <!-- Placeholder for key visualization -->
+		    </div>
+		</div>
+
+    <div class="content-margin-container" id="intro">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+						<h1>Introduction</h1>
+						<i>*A very basic understanding of baseball is helpful, but not critical, for this blog. For an intro, see <a href="https://www.dummies.com/article/home-auto-hobbies/sports-recreation/baseball/baseball-for-dummies-cheat-sheet-207756" target="_blank">Baseball For Dummies Cheat Sheet</a>.</i><br><br>
+						
+						We use pitch data from 5 years of Major League Baseball (MLB) games as a domain for assessing the behavior of deep learning methods on a real-world prediction task where empirical research has been limited. We explore how different inductive biases, feature representations, and evaluation methods behave in an autoregressive pitch modeling setting, using baseball as a novel test setting. We train and evaluate models on over 5 years of Statcast data from MLB games (2021-2025), predicting continuous pitch outcomes in terms of run expectancy changes.
+						Our results yield interesting insights about the inductive biases of MLPs and LSTMs in the pitch modeling setting, highlighting risks in naively growing the input dimension without careful regularization.
+
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="background">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+					<h1>Background & Related Work</h1>
+					Sabermetrics, or baseball analytics, is the practice of applying scientific and mathematical principles to the game of baseball. This field, popularized by the film Moneyball, has become a mainstram practice in the sport. Every year, over 700,000 pitches are thrown in Major League Baseball (MLB), each being meticulously tracked by a wide array of technologies. Various optical and radar-based tracking systems allow analysts to build quantitative models using characteristics such as velocity, spin rate, and magnus-induced movement to characterize what makes pitches successful (by preventing runs).<br><br>
+
+					The science of pitch modeling, in particular, has become a mainstream practice in the sabermetrics community. The goal of pitch modeling is to use information of pitches (release speed, trajectory, spin, etc.) to predict a run value, where allowing less runs is favorable for the pitcher. Existing work in this space has revealed key insights that inform player development and evaluation strategies used today. For example, pitch models (oftentimes referred to as Stuff+ models) suggest that higher velocity on fastballs predict better outcomes for the pitcher, which has transformed the way pitchers train and develop.<br><br>
+
+					<b>Run Expectancy</b><br>
+					Pitch modeling, in its simplest form, treats each pitch as a regression problem with a continuous target (a run-based value) and a set of pitch characteristics as inputs, such as velocity, spin rate, and so forth [<a href="#ref_5">5</a>, <a href="#ref_6">6</a>]. To understand the concept of run values, it is useful to think of a baseball game as a Markov chain, where states are combinations of baserunner configurations (are there runners on 1st, 2nd, and/or 3rd) and the number of outs (0, 1, or 2). There are \(2^3 = 8\) possible baserunner states and 3 possible out states, resulting in \(8 \times 3 = 24\) base–out states. The expected number of runs scored from a given base–out state to the end of the inning is called the run expectancy.<br><br>
+
+					<div style="text-align: center; margin: 20px 0;">
+						<img src="images/run_expectancy_matrix.png" alt="Run Expectancy Matrix" style="max-width: 33%; height: auto; border: 1px solid #ddd; padding: 10px; background-color: #fff;">
+						<div style="margin-top: 10px;">
+							<b>Figure 1. Example Run Expectancy Matrix for D1 Baseball 2018.</b> The table shows the expected number of runs that will score from each base-out state to the end of the inning. Source: <a href="https://x.com/643charts" target="_blank">6-4-3 Charts</a>
+						</div>
+					</div>
+					<br>
+
+					<p>
+						Run expectancy can be defined more granularly using <b>base–out–count states</b>: this is the same idea as base–out states, except now we also condition on the ball–strike count. In full, there are 12 possible ball–strike counts, yielding 
+						<span style="white-space:nowrap;">\(24 \times 12 = 288\)</span> base–out–count states.
+					</p>
+
+					<p>
+						Every pitch moves the game from one base–out–count state to another, each with its own run expectancy. The pitcher's goal is to reduce the overall run expectancy. The target we use is <b>delta run expectancy</b> (\(\Delta RE\)), meaning the change in run expectancy from before to after the pitch. This provides a numerical representation of the pitch's effectiveness at preventing runs.
+					</p>
+
+					<p>
+						As Figure 1 shows, the expected number of runs varies dramatically depending on the game situation. The formula for delta run expectancy is:
+					</p>
+
+					<div style="text-align:center; margin:16px 0;">
+						\[
+						\Delta RE = RE_{\text{after}} - RE_{\text{before}} + \text{Runs Scored on the Pitch}
+						\]
+					</div>
+
+					<p>
+						As a concrete example, consider the following scenario: A relief pitcher enters the game with the bases loaded and one out. They allow a sacrifice fly to score the runner from third, with the other two runners not advancing.
+					</p>
+					<ul>
+						<li>
+							<b>Before:</b> Runners on 1B, 2B, 3B; 1 out (<i>RE</i> = 0.734)
+						</li>
+						<li>
+							<b>After:</b> 1 run scored; Runners on 1B, 2B; 2 outs (<i>RE</i> = 0.268)
+						</li>
+						<li>
+							<b>Delta RE:</b> 0.734 - 0.268 + 1 = <b>1.466</b>
+						</li>
+					</ul>
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="autoregressive">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+					<h1>Pitch Modeling as an Autoregressive Task</h1>
+					Over the past several years, the sabermetric community has come to recognize that pitch modeling is in fact an autoregressive task. Autoregressiveness, however, is not implemented through inductive biases of selected models, but rather through engineering the input features to capture what is thought to be autoregressive structure.
+					
+					For example, studies of pitch sequencing and pitch tunneling show that the effectiveness of one pitch can depend on the pitches the hitter has already seen during the plate appearance. <b>Sequencing</b> refers to how the pitcher arranges different pitch types over time to set up the hitter, while <b>tunneling</b> refers to making different pitches look nearly identical for as long as possible out of the hand before they break in different directions [<a href="#ref_7">7</a>]. For example, a high fastball that raises the hitter's eyeline likely makes the incoming low curveball more effective, especially if they tunnel together.<br><br>
+
+					In practice, pitch models are typically implemented as gradient boosting trees, which are good at capturing nonlinearities and high-level interactions. In this setting, autoregressive structure is injected by simply adding lagged features as inputs to the model. These can be raw lagged features (e.g., the velocity of the last pitch to see how much velo the pitcher added or "killed") or handcrafted ones (with measures of pitch tunneling being a prominent example). Despite some public research on sequence models for predicting pitch types [<a href="#ref_8">8</a>], there is relatively little work exploring deep sequence models for run expectancies. Additionally, the pitch modeling setting is a relatively unexplored domain for empirical research in deep learning, despite the richness of data and clear underlying objectives.<br><br>
+
+					Outside of baseball, there is a large literature on deep learning for time-series forecasting across domains such as finance, transportation, and climate, and surveys find that sequence models are oftentimes the superior model class for these tasks [<a href="#ref_9">9</a>, <a href="#ref_10">10</a>]. However, this is not a guarantee, and previous research has shown that even simple temporal convolutional networks can beat LSTMs on standard sequence benchmarks and exhibit longer effective memory than vanilla recurrent networks [<a href="#ref_11">11</a>]. This work is similar to studies that compare LSTMs to traditional time-series models (ARIMAs) under noisy economic or financial data [<a href="#ref_12">12</a>]. <b>However, beyond simply comparing predictive performance, we investigate how relative performance changes with different information budgets and examine the source of performance gaps.</b> This project uses pitch modeling as a setting for understanding when sequence models offer advantages over traditional MLPs.
+					I would argue this is a particularly interesting setting due to the notoriously random nature of baseball outcomes at the pitch level.
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="research_questions">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+					<h1>Research Questions</h1>
+					This project aims to address the following research objectives:<br><br>
+
+					<b>1. Effective memory and context usage in LSTMs vs "just add lags"</b><br>
+					For a given lag length \(k\), how does the LSTM's advantage over the MLP evolve with pitch number within a plate appearance, if at all?<br><br>
+
+					<b>2. Inductive biases under noisy supervision</b><br>
+					What do numerical results reveal about the differences in inductive biases of MLPs vs LSTMs in highly noisy, partially autoregressive environments?<br><br>
+					
+					We evaluate models using RMSE at both the pitch level (individual predictions) and pitcher level (aggregated by pitcher). The pitcher-level view is particularly relevant for player evaluation over a larger number of pitches (e.g. a season's worth of innings pitched).
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="methods">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+            <h1>Methods</h1>
+						<b>Data</b><br>
+						Pitch-level data from MLB Statcast was queried using the pybaseball Python package [<a href="#ref_13">13</a>] for all seasons between 2021 and 2025, yielding a total of 3,833,701 pitches.<br><br>
+
+						For every pitch, we have the relevant contextual and kinematic features characterizing the event. Table 1 provides the complete feature set used in this study:<br><br>
+
+						<div style="text-align: center; margin: 10px 0;">
+							<b>Table 1. Feature Descriptions and Variable Types</b>
+						</div>
+
+						<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+							<thead>
+								<tr style="background-color: #f0f0f0;">
+									<th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Feature</th>
+									<th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Variable Type</th>
+									<th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Plain-English Definition</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Pitch Velocity (mph)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Speed of the pitch as it leaves the pitcher's hand. Generally, higher fastball velocity and the ability to "kill" velocity on offspeed pitches is better for the pitcher.</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;">Spin Axis (degrees)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Direction the ball is rotating around as it travels toward the plate, directly determining the direction of the spin-induced movement (Magnus force)</td>
+								</tr>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Spin Rate (rpm)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">How fast the ball is spinning around its axis, directly determining the magnitude of the spin-induced movement (Magnus force).</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;">Plate X Position (ft)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Horizontal location where the pitch crosses the front of home plate (inside/outside).</td>
+								</tr>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Plate Z Position (ft)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Height of the pitch above the ground as it crosses the front of home plate.</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;">Horizontal Break (ft)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Side-to-side movement of the pitch caused by the Magnus force and seam-shifted wake.</td>
+								</tr>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Induced Vertical Break (ft)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Extra rise or drop on the pitch due to spin, beyond what gravity alone would do, caused by the Magnus force and seam-shifted wake.</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;">Arm Angle (degrees)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">The angle of the pitcher's arm at release (over-the-top vs. sidearm, etc.).</td>
+								</tr>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Release Extension (ft)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Kinematic</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">How far in front of the rubber the pitcher releases the ball. Higher extension means the ball is released closer to home plate, typically better for the pitcher.</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;">Balls (count)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Contextual</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Number of balls in the count before the pitch.</td>
+								</tr>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Strikes (count)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Contextual</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Number of strikes in the count before the pitch.</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;">Runner on First Base</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Contextual</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Indicator of whether there is a runner on first base.</td>
+								</tr>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Runner on Second Base</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Contextual</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Indicator of whether there is a runner on second base.</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;">Runner on Third Base</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Contextual</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Indicator of whether there is a runner on third base.</td>
+								</tr>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Batter Handedness (R/L)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Contextual</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Whether the batter is hitting left-handed or right-handed. Typically, being the opposite handedness as the pitcher favors the batter.</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;">Pitcher Handedness (R/L)</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Contextual</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Whether the pitcher throws left-handed or right-handed. Typically, being the same handedness as the batter favors the pitcher.</td>
+								</tr>
+								<tr>
+									<td style="border: 1px solid #ddd; padding: 8px;">Game Year</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Contextual</td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Season year in which the pitch was thrown. Accounts for the yearly variation in run scoring environment.</td>
+								</tr>
+								<tr style="background-color: #f9f9f9;">
+									<td style="border: 1px solid #ddd; padding: 8px;"><b>Delta Run Expectancy</b></td>
+									<td style="border: 1px solid #ddd; padding: 8px;"><b>Target variable</b></td>
+									<td style="border: 1px solid #ddd; padding: 8px;">Change in expected runs for the inning from before to after the pitch (the pitch's run value).</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+
+						<div style="text-align: center; margin: 20px 0;">
+							<img src="images/feature_distro.png" alt="Feature Distributions" style="max-width: 80%; height: auto; border: 1px solid #ddd; padding: 10px; background-color: #fff;">
+							<div style="margin-top: 10px;">
+								<b>Figure 2. Feature Distributions of 3.8 Million Pitches from MLB Statcast (2021-2025).</b> Histograms show the distribution of kinematic and contextual features across all pitches. Yellow bars indicate categorical features.
+							</div>
+						</div>
+						<br>
+
+						Data were split into train/validation/test (80/10/10) in a pitcher-stratified fashion to avoid pitcher-specific leakage. The random seed was fixed to eliminate confounding variables when comparing model performance.<br><br>
+
+						<b>Autoregressive Features</b><br>
+						We introduce autoregressive structure by adding lagged features for kinematic features: velocity, spin axis, spin rate, arm angle, release extension, and plate location (horizontal and vertical). 
+						Together, they summarize the "look" and movement of prior pitches to the hitter, the primary aspect of pitch sequencing. We exclude contextual features, as the autoregressive bias for these features is likely minimal.
+						We define a time series at the plate-appearance (PA) level. Thus, a PA where the hitter saw 5 pitches corresponds to a length-5 sequence, and the 5th pitch in that PA has \(k = 4\) lags of features available.<br><br>
+
+						<b>MLPs</b><br>
+						We build and train several fixed-architecture residual MLPs to predict delta run expectancy on the aforementioned features, varying the number of lagged features available in the input representation, growing the input dimension linearly with \(k\). We one-hot encode categorical features and impute missing values with a sentinel. We Z-score features for standardization and then train the MLP (input layer → four residual ReLU blocks → linear output) with Adam (\(\text{lr} = 10^{-3}\), weight decay \(\lambda = 10^{-5}\)), MSE loss, gradient clipping, and early stopping on validation MSE. We forgo hyperparameter tuning for this work, given the time and compute constraints of the semester.<br><br>
+
+						<b>LSTMs</b><br>
+						In the sequence modeling setting, we model each pitch as the last step of a short sequence and let an LSTM learn how recent pitches shape the outcome. 
+						For a given history length \(k\), the input is ordered as \([x_{t-k}, \ldots, x_{t-1}, x_t]\), where earlier steps contain lagged deltas of kinematic and location features and the final step also holds the current pitch's one‑hot–encoded context (count, handedness, runners, etc.). 
+						We apply the same imputation and scaling process used for MLPs. 
+						A two‑layer LSTM (hidden dimension \(h = 128\), mild dropout) feeds a ReLU head and a linear output that predicts the change in run expectancy. 
+						We optimize with Adam (\(\text{lr} = 10^{-3}\), weight decay \(\lambda = 10^{-5}\)), use gradient clipping, and early stopping on validation MSE, consistent with the MLPs. 
+						All models use the same optimization strategy and early stopping criteria to ensure an equal comparison.
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="evaluation">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+            <h1>Evaluation Metrics</h1>
+						We use two modes of evaluation: at the pitch-level RMSE and at the pitcher-level RMSE. Baseball outcomes are inherently noisy, and even very strong models typically achieve modest performance in this setting. Our focus is therefore on relative performance across model classes instead of absolute magnitudes. The pitcher-level view is useful for player evaluation, capturing how well each model differentiates between pitchers over many pitches. Pitcher-level RMSE provides insight into how well models can distinguish between different pitchers' abilities in the aggregate.
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="results">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+            <h1>Results</h1>
+						We find strong evidence that LSTMs outperform MLPs on both pitch-level RMSE and pitcher-level RMSE in the autoregressive setting, which is not entirely surprising. The interesting finding here is that <b>the performance gap increases with the number of lags and is driven by worsening MLP performance rather than improvements in the LSTM</b> (Figures 3 and 4). Linearly increasing the number of lagged features fed to the fixed-architecture MLP appears to negatively impact the signal-to-noise ratio, hindering results in both training and out-of-sample contexts. By contrast, the LSTM gains little from additional lags but does not deteriorate, consistent with an ability to down-weight or forget noisy history. The LSTM provides consistent improvements ranging from approximately 1-3% in RMSE across different lag values (Figure 4). Ultimately, these results suggest that when we care about longer pitch histories, sequence models like LSTMs are a safer default than simply adding more lags to an MLP, though a larger or more strongly regularized MLP might narrow this gap.<br><br>
+
+						<div style="text-align: center; margin: 20px 0;">
+							<img src="images/rmse_over_lags.png" alt="Predictive Performance: LSTM vs MLP" style="max-width: 80%; height: auto; border: 1px solid #ddd; padding: 10px; background-color: #fff;">
+							<div style="margin-top: 10px;">
+								<b>Figure 3. Predictive Performance: LSTM vs MLP (Same Information Budget).</b> RMSE comparison across different lag lengths for both pitch-level (left) and pitcher-level (right) evaluation. Shaded regions show ±1 standard deviation. The LSTM (green) maintains consistent performance while the MLP (purple) degrades as more lagged features are added.
+							</div>
+						</div>
+						<br>
+
+						<div style="text-align: center; margin: 20px 0;">
+							<img src="images/rmse_percent_over_lags.png" alt="LSTM Improvement over MLP (%)" style="max-width: 80%; height: auto; border: 1px solid #ddd; padding: 10px; background-color: #fff;">
+							<div style="margin-top: 10px;">
+								<b>Figure 4. LSTM Improvement over MLP (%).</b> Percentage RMSE improvement of LSTM over MLP across different lag lengths. Error bars show ±1 standard deviation. Left panel shows pitch-level improvement; right panel shows pitcher-level improvement. The LSTM advantage peaks at lag 2 with 3.13% improvement at pitch-level and 3.11% at pitcher-level.
+							</div>
+						</div>
+						<br>
+
+						<b>Performance by Pitch Number</b><br>
+						As a next step, we break performance down by the pitch's position within the plate appearance (up to the 8th pitch) for a few lagged models (\(k \in \{3, 5, 7\}\)). For each \(k\), the LSTM's advantage over the MLP grows nearly monotonically as more pitches are seen, peaks around pitch \(k\), and then starts to taper off (Figure 5). This pattern fits the intuition that the LSTM gains most once it has access to its full \(k\)-pitch history, with additional context providing diminishing returns. Later pitch numbers are also rarer in the data, so the bars at 7 and 8 should be interpreted with a bit more caution.<br><br>
+
+						<div style="text-align: center; margin: 20px 0;">
+							<img src="images/lstm_advantage_by_pitchnum.png" alt="LSTM Advantage by Pitch Number" style="max-width: 80%; height: auto; border: 1px solid #ddd; padding: 10px; background-color: #fff;">
+							<div style="margin-top: 10px;">
+								<b>Figure 5. LSTM Advantage by Pitch Number.</b> Percentage RMSE improvement of LSTM over MLP at different pitch numbers within the plate appearance, shown for lag values \(k \in \{3, 5, 7\}\). Top row shows pitch-level RMSE; bottom row shows pitcher-level RMSE. The LSTM advantage peaks around pitch \(k\) (the lag length), then diminishes.
+							</div>
+						</div>
+						<br>
+						
+						Figures 3 and 4 show LSTM stability and percentage improvement across lags, while Figure 5 reveals how LSTM advantage varies within each plate appearance.
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="discussion">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+						<h1>Discussion & Conclusions</h1>
+						Our results yield several interesting lessons about how strengths of inductive biases of deep learning models manifest in the pitch modeling setting. First, we see strong evidence of limitations in the <b>"just add lags" strategy for MLPs.</b> We find that as the number of lags increases, a fixed capacity residual MLP eventually breaks down, even though the model technically has more information. This suggests that, in noisy autoregressive environments such as baseball, naively growing the input dimension may harm the signal-to-noise ratio and hurt the ability to learn useful models, especially when capacity and regularization are not adjusted accordingly.<br><br>
+
+						Second, under the same information budget, the LSTM is more robust to additional context, but in an interesting fashion. Its performance advantage grows as we add lags, but is <b>driven almost entirely by the MLP getting worse, not by the LSTM getting better.</b> When we break results down by pitch number within the plate appearance, the LSTM's advantage grows as the sequence unfolds, peaks once it has roughly \(k\) pitches of usable history, and then drops off. This is consistent with an effective memory window, as the recurrent architecture likely learns to discard older, noisy context rather than overfitting to it. However, the LSTM will fail to generalize well to sequences beyond its information budget, at times catastrophically, highlighting a need to carefully tailor sequence length to the data at hand.<br><br>
+
+						Taken together, these findings highlight that <b>architecture choice matters even in relatively simple autoregressive problems with short horizons.</b> 
+						In this pitch modeling setting where label noise is substantial but autoregressive signal is likely present, stacking lagged features into feed-forward models fail due to the weak temporal biases baked into MLPs. 
+						The results suggest that models with temporal structure (LSTMs) are a safer default once we start to care about even modest history lengths due to their ability to "forget" about noisy histories. 
+						These insights may generalize to other noisy autoregressive prediction tasks beyond baseball.
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="limitations">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+						<h1>Limitations</h1>
+						This work has several limitations. We only compare a single family of MLPs and a single LSTM configuration, without extensive hyperparameter tuning or architectural search, due to the compute available as well as the semester's time constraints. All results are specific to one domain (MLB pitch data) and one target (delta run expectancy). As such, our conclusions should be viewed as empirical case studies of inductive bias rather than definitive verdicts about architecture choice. Future work could explore more architectures and hyperparameter configurations to validate these findings.
+		    </div>
+		</div>
+
+		<div class="content-margin-container" id="citations">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+						<div class='citation' id="references" style="height:auto"><br>
+							<span style="font-size:16px">References</span><br><br>
+							<a id="ref_1"></a>[1] Major League Baseball (2021-2025). Statcast data. <i>Baseball Savant</i>. Retrieved from <a href="https://baseballsavant.mlb.com/" target="_blank">https://baseballsavant.mlb.com/</a><br><br>
+							<a id="ref_2"></a>[2] Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). PyTorch: An imperative style, high-performance deep learning library. <i>Advances in Neural Information Processing Systems</i>, 32.<br><br>
+							<a id="ref_3"></a>[3] Hochreiter, S., & Schmidhuber, J. (1997). Long short-term memory. <i>Neural Computation</i>, 9(8), 1735-1780.<br><br>
+							<a id="ref_4"></a>[4] Wang, H. (2024). Temporal Context in Deep Neural Networks for MLB Pitch Prediction. Final project for MIT 6.7960: Deep Learning (Fall 2024).<br><br>
+							<a id="ref_5"></a>[5] Asel, J. (2021). Rethinking the True Run Value of a Pitch With a Pitch Model. <i>Driveline Baseball</i>. Retrieved from <a href="https://www.drivelinebaseball.com/2021/09/rethinking-the-true-run-value-of-a-pitch-with-a-pitch-model/" target="_blank">https://www.drivelinebaseball.com/2021/09/rethinking-the-true-run-value-of-a-pitch-with-a-pitch-model/</a><br><br>
+							<a id="ref_6"></a>[6] Weinberg, B. Predicting Run Production and Run Prevention in Baseball: The Impact of Sabermetrics. Retrieved from <a href="https://www.researchgate.net/profile/Bruce-Weinberg/publication/266344641_Predicting_Run_Production_and_Run_Prevention_in_Baseball_The_Impact_of_Sabermetrics/links/54bab6740cf253b50e2d0563/Predicting-Run-Production-and-Run-Prevention-in-Baseball-The-Impact-of-Sabermetrics.pdf" target="_blank">ResearchGate</a><br><br>
+							<a id="ref_7"></a>[7] Prospectus Feature: Updating Pitch Tunnels. <i>Baseball Prospectus</i>. Retrieved from <a href="https://www.baseballprospectus.com/news/article/37436/prospectus-feature-updating-pitch-tunnels/" target="_blank">https://www.baseballprospectus.com/news/article/37436/prospectus-feature-updating-pitch-tunnels/</a><br><br>
+							<a id="ref_8"></a>[8] No Pitch is an Island: Pitch Prediction with Sequence-to-Sequence Deep Learning. <i>FanGraphs Community Research</i>. Retrieved from <a href="https://community.fangraphs.com/no-pitch-is-an-island-pitch-prediction-with-sequence-to-sequence-deep-learning/" target="_blank">https://community.fangraphs.com/no-pitch-is-an-island-pitch-prediction-with-sequence-to-sequence-deep-learning/</a><br><br>
+							<a id="ref_9"></a>[9] Kong, X., Chen, Z., Liu, W., Ning, K., Zhang, L., Marier, S. M., ... & Xia, F. (2025). Deep learning for time series forecasting: a survey. <i>International Journal of Machine Learning and Cybernetics</i>, 16, 5079-5112.<br><br>
+							<a id="ref_10"></a>[10] Deep learning for time series forecasting: a survey. Retrieved from <a href="https://www.researchgate.net/publication/388826200_Deep_learning_for_time_series_forecasting_a_survey" target="_blank">ResearchGate</a><br><br>
+							<a id="ref_11"></a>[11] Bai, S., Kolter, J. Z., & Koltun, V. (2018). An empirical evaluation of generic convolutional and recurrent networks for sequence modeling. <i>arXiv preprint arXiv:1803.01271</i>.<br><br>
+							<a id="ref_12"></a>[12] Siami-Namini, S., & Namin, A. S. (2018). Forecasting economics and financial time series: ARIMA vs. LSTM. <i>arXiv preprint arXiv:1803.06386</i>.<br><br>
+							<a id="ref_13"></a>[13] LeDoux, J., & Schorr, M. (2024). pybaseball: A Python package for baseball data retrieval and analysis. <i>GitHub repository</i>. Retrieved from <a href="https://github.com/jldbc/pybaseball" target="_blank">https://github.com/jldbc/pybaseball</a><br><br>
+						</div>
+		    </div>
+		</div>
+
+	</body>
+
+</html>
