@@ -1,3 +1,23 @@
+// Theme toggle
+(function () {
+    var btn = document.querySelector('.theme-toggle');
+    if (btn) {
+        btn.addEventListener('click', function () {
+            var current = document.documentElement.getAttribute('data-theme');
+            var next;
+            if (current === 'dark') {
+                next = 'light';
+            } else if (current === 'light') {
+                next = 'dark';
+            } else {
+                next = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+    }
+})();
+
 // Hamburger menu toggle
 (function () {
     var toggle = document.querySelector('.nav-toggle');
