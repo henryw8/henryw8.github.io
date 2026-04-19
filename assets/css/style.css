@@ -862,8 +862,8 @@ footer a:hover {
 /* Scroll animations */
 .fade-in-up {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
 .fade-in-up.visible {
@@ -871,9 +871,9 @@ footer a:hover {
     transform: translateY(0);
 }
 
-.fade-in-up:nth-child(2) { transition-delay: 0.1s; }
-.fade-in-up:nth-child(3) { transition-delay: 0.2s; }
-.fade-in-up:nth-child(4) { transition-delay: 0.3s; }
+.fade-in-up:nth-child(2) { transition-delay: 0.05s; }
+.fade-in-up:nth-child(3) { transition-delay: 0.1s; }
+.fade-in-up:nth-child(4) { transition-delay: 0.15s; }
 
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
@@ -899,17 +899,21 @@ footer a:hover {
     }
 
     .nav-links {
-        display: none;
+        display: flex;
         flex-direction: column;
         width: 100%;
         gap: 0;
-        padding-top: 1rem;
+        padding-top: 0;
         border-top: 1px solid var(--border-color);
         margin-top: 0.75rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding-top 0.3s ease;
     }
 
     .nav-links.open {
-        display: flex;
+        max-height: 300px;
+        padding-top: 1rem;
     }
 
     .nav-links li {
@@ -936,7 +940,12 @@ footer a:hover {
     .hero-content {
         flex-direction: column;
         text-align: center;
+        align-items: center;
         gap: 2rem;
+    }
+
+    .cta-buttons {
+        justify-content: center;
     }
 
     .headshot {
