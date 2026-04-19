@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Henry Wang - Sports Analytics Researcher at MIT and Boston Red Sox">
+    <meta name="description" content="Henry Wang - Sports Analytics Researcher at MIT and Philadelphia 76ers">
     <title>Henry Wang</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="logo"><a href="index.html">Henry Wang</a></div>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="work.html">Work</a></li>
                 <li><a href="press.html">Press</a></li>
@@ -28,7 +34,7 @@
                 <div class="hero-text">
                     <h1>Henry Wang</h1>
                     <p class="tagline">PhD Candidate at MIT, Social & Engineering Systems</p>
-                    <p class="subtitle">MIT Sports Lab & Boston Red Sox</p>
+                    <p class="subtitle">MIT Sports Lab & Philadelphia 76ers</p>
                     <div class="cta-buttons">
                         <a href="work.html" class="btn btn-primary">View My Work</a>
                     </div>
@@ -44,8 +50,9 @@
                 <h2>About</h2>
                 <div class="about-content">
                     <div class="about-text">
-                        <p>I'm passionate about using data and technology to make sports more transparent while gaining a competitive edge. Growing up as a mathlete, competitive swimmer, and an avid Philadelphia sports fan, I've always appreciated the harmony between the game and the numbers we use to describe it.</p>
-                        <p>Today, I split my time between MIT's Sports Lab, where I'm working with FIFA to build systems that assist referees on the pitch, and the Boston Red Sox, where I focus on extracting hitting and pitching insights from our motion-capture data.</p>
+                        <p>I'm passionate about using data and technology to make sports governance more transparent while helping teams and athletes gain and convert competitive advantages. Growing up as a mathlete, competitive swimmer, and an avid Philadelphia sports fan, I've always appreciated finding the hidden patterns and connections in the game.</p>
+                        <p>Today, I split my time between the MIT Sports Lab, where I'm working with FIFA to build fan-preference-aligned systems that help referees make better decisions, and the Philadelphia 76ers, where I focus on basketball R&D.</p>
+                  
                     </div>
                     <div class="about-image">
                         <img src="assets/images/fifa_conference_23.jpeg" alt="Presenting at FIFA Conference">
@@ -56,8 +63,22 @@
     </main>
 
     <footer>
-        <p>© 2026 Henry Wang · <a href="mailto:hwang21@mit.edu">hwang21@mit.edu</a> · <a href="https://linkedin.com/in/hwang21/" target="_blank">LinkedIn</a> · <a href="https://scholar.google.com/citations?user=8h_nPZUAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a></p>
+        <div class="footer-content">
+            <p class="footer-copyright">&copy; 2026 Henry Wang</p>
+            <div class="footer-links">
+                <a href="mailto:hwang21@mit.edu" aria-label="Email">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                <a href="https://linkedin.com/in/hwang21/" target="_blank" aria-label="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a href="https://scholar.google.com/citations?user=8h_nPZUAAAAJ&hl=en&oi=ao" target="_blank" aria-label="Google Scholar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 9l10 7 10-7-10-7z"/><path d="M2 17l10 7 10-7"/><path d="M2 12l10 7 10-7"/></svg>
+                </a>
+            </div>
+        </div>
     </footer>
 
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
