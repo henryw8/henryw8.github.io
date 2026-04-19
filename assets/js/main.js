@@ -18,27 +18,6 @@
     }
 })();
 
-// Hamburger menu toggle
-(function () {
-    var toggle = document.querySelector('.nav-toggle');
-    var navLinks = document.querySelector('.nav-links');
-
-    if (toggle && navLinks) {
-        toggle.addEventListener('click', function () {
-            this.classList.toggle('active');
-            navLinks.classList.toggle('open');
-            this.setAttribute('aria-expanded', this.classList.contains('active'));
-        });
-
-        navLinks.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                toggle.classList.remove('active');
-                navLinks.classList.remove('open');
-                toggle.setAttribute('aria-expanded', 'false');
-            });
-        });
-    }
-})();
 
 // Scroll animations with IntersectionObserver
 (function () {
